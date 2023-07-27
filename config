@@ -175,9 +175,12 @@ bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
 assign [class="Alacritty"] $ws1
+assign [class="Code"] $ws1
 assign [class="Brave-browser"] $ws2
 assign [class="Org.gnome.Software"] $ws2
 assign [class="discord"] $ws3
+assign [class="whatsapp-desktop-linux"] $ws3
+assign [class="TelegramDesktop"] $ws3
 assign [class="tidal-hifi"] $ws4
 assign [class="1Password"] $ws5
 assign [class="Org.gnome.Nautilus"] $ws5
@@ -239,7 +242,10 @@ mode "launch" {
     bindsym b exec --no-startup-id brave
     bindsym o exec --no-startup-id "1password"
     bindsym f exec --no-startup-id nautilus
-    bindsym t exec --no-startup-id flatpak run com.mastermindzh.tidal-hifi
+    bindsym v exec --no-startup-id code
+    bindsym t exec --no-startup-id telegram-desktop
+    bindsym m exec --no-startup-id flatpak run com.mastermindzh.tidal-hifi
+    bindsym w exec --no-startup-id flatpak run io.github.mimbrero.WhatsAppDesktop
     bindsym Return mode "default"
     bindsym Escape mode "default"
     bindsym $mod+p mode "default"
