@@ -25,8 +25,7 @@ exec --no-startup-id dex --autostart --environment i3
 
 exec_always --no-startup-id picom --config ~/.config/picom.conf
 
-exec --no-startup-id setxkbmap dvorak
-
+exec --no-startup-id setxkbmap us dvp
 
 exec_always --no-startup-id killall polybar
 
@@ -66,7 +65,8 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+e exec --no-startup-id dmenu_run
+bindsym $mod+e exec --no-startup-id rofi -show drun -show-icons
+bindsym $mod+slash exec --no-startup-id rofi -show filebrowser
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -239,9 +239,8 @@ bindsym $mod+l mode "launch"
 
 mode "launch" {
     bindsym d exec --no-startup-id discord
-    bindsym b exec --no-startup-id brave
+    bindsym b exec --no-startup-id brave-browser
     bindsym o exec --no-startup-id "1password"
-    bindsym f exec --no-startup-id nautilus
     bindsym v exec --no-startup-id code
     bindsym t exec --no-startup-id telegram-desktop
     bindsym m exec --no-startup-id flatpak run com.mastermindzh.tidal-hifi
