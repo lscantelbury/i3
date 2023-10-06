@@ -23,6 +23,11 @@ font pango:monospace 8
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
 
+exec --no-startup-id i3-battery-popup
+
+exec_always --no-startup-id xrandr --output eDP-1 --primary
+exec_always --no-startup-id xrandr --output HDMI-1 --primary --left-of eDP-1
+
 exec_always --no-startup-id picom --config ~/.config/picom.conf
 
 
@@ -45,7 +50,9 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
-exec_always --no-startup-id setxkbmap us dvorak -option lv3:ralt
+exec_always --no-startup-id setxkbmap br dvorak
+
+exec emacs --fg-daemon
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -57,9 +64,8 @@ bindsym XF86MonBrightnessUp exec --no-startup-id light -A 10 && $refresh_i3statu
 bindsym XF86MonBrightnessDown exec --no-startup-id light -U 10 && $refresh_i3status
 
 # Screenshots
-bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/$(date)"
-bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/$(date)"
-bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(date)"
+bindsym Shift+Print exec --no-startup-id gnome-screenshot -a
+bindsym $mod+Print exec --no-startup-id gnome-screenshot -w
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -67,12 +73,15 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec alacritty
 
+bindsym $mod+Shift+Return exec emacsclient -c
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+e exec --no-startup-id rofi -show drun -show-icons
 bindsym $mod+slash exec --no-startup-id rofi -show filebrowser
+
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -129,8 +138,6 @@ bindsym $mod+a focus parent
 focus_on_window_activation focus
 
 # Workspaces/Monitors
-exec_always --no-startup-id xrandr --output HDMI-1 --primary
-exec_always --no-startup-id xrandr --output HDMI-1 --left-of eDP-1
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -182,6 +189,7 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 
 assign [class="Alacritty"] $ws1
 assign [class="Code"] $ws1
+assign [class="Emacs"] $ws1
 assign [class="Brave-browser"] $ws2
 assign [class="Org.gnome.Software"] $ws2
 assign [class="discord"] $ws3
@@ -212,7 +220,7 @@ mode "exit: [l]ogout, [r]eboot, [s]hutdown" {
 
 }
 
-bindsym $mod+x mode "exit: [l]ogout, [r]eboot, [s]hutdown"
+bindsym Mod4+x mode "exit: [l]ogout, [r]eboot, [s]hutdown"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
